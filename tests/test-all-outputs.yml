@@ -1,0 +1,109 @@
+name: Test all outputs
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-env
+        uses: .
+      - name: Print all outputs
+        env:
+          GO_VERSION: ${{ steps.setup-env.outputs.go-version }}
+          GO_CRITIC_VERSION: ${{ steps.setup-env.outputs.go-critic-version }}
+          GO_JUNIT_REPORT_VERSION: ${{ steps.setup-env.outputs.go-junit-report-version }}
+          GOIMPORTS_VERSION: ${{ steps.setup-env.outputs.goimports-version }}
+          GOMOCK_VERSION: ${{ steps.setup-env.outputs.gomock-version }}
+          GOSEC_VERSION: ${{ steps.setup-env.outputs.gosec-version }}
+          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
+          PYTHON_VERSION: ${{ steps.setup-env.outputs.python-version }}
+          SHFMT_VERSION: ${{ steps.setup-env.outputs.shfmt-version }}
+          STATICCHECK_VERSION: ${{ steps.setup-env.outputs.staticcheck-version }}
+          TERRAFORM_VERSION: ${{ steps.setup-env.outputs.terraform-version }}
+          TERRAFORM_DOCS_VERSION: ${{ steps.setup-env.outputs.terraform-docs-version }}
+        run: |
+          echo "go-version: $GO_VERSION"
+          echo "go-critic-version: $GO_CRITIC_VERSION"
+          echo "go-junit-report-version: $GO_JUNIT_REPORT_VERSION"
+          echo "goimports-version: $GOIMPORTS_VERSION"
+          echo "gomock-version: $GOMOCK_VERSION"
+          echo "gosec-version: $GOSEC_VERSION"
+          echo "packer-version: $PACKER_VERSION"
+          echo "python-version: $PYTHON_VERSION"
+          echo "shfmt-version: $SHFMT_VERSION"
+          echo "staticcheck-version: $STATICCHECK_VERSION"
+          echo "terraform-version: $TERRAFORM_VERSION"
+          echo "terraform-docs-version: $TERRAFORM_DOCS_VERSION"
+      - name: Assert all outputs are non-empty
+        env:
+          GO_VERSION: ${{ steps.setup-env.outputs.go-version }}
+          GO_CRITIC_VERSION: ${{ steps.setup-env.outputs.go-critic-version }}
+          GO_JUNIT_REPORT_VERSION: ${{ steps.setup-env.outputs.go-junit-report-version }}
+          GOIMPORTS_VERSION: ${{ steps.setup-env.outputs.goimports-version }}
+          GOMOCK_VERSION: ${{ steps.setup-env.outputs.gomock-version }}
+          GOSEC_VERSION: ${{ steps.setup-env.outputs.gosec-version }}
+          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
+          PYTHON_VERSION: ${{ steps.setup-env.outputs.python-version }}
+          SHFMT_VERSION: ${{ steps.setup-env.outputs.shfmt-version }}
+          STATICCHECK_VERSION: ${{ steps.setup-env.outputs.staticcheck-version }}
+          TERRAFORM_VERSION: ${{ steps.setup-env.outputs.terraform-version }}
+          TERRAFORM_DOCS_VERSION: ${{ steps.setup-env.outputs.terraform-docs-version }}
+        run: |
+          FAILED=0
+          for name_val in \
+            "go-version:$GO_VERSION" \
+            "go-critic-version:$GO_CRITIC_VERSION" \
+            "go-junit-report-version:$GO_JUNIT_REPORT_VERSION" \
+            "goimports-version:$GOIMPORTS_VERSION" \
+            "gomock-version:$GOMOCK_VERSION" \
+            "gosec-version:$GOSEC_VERSION" \
+            "packer-version:$PACKER_VERSION" \
+            "python-version:$PYTHON_VERSION" \
+            "shfmt-version:$SHFMT_VERSION" \
+            "staticcheck-version:$STATICCHECK_VERSION" \
+            "terraform-version:$TERRAFORM_VERSION" \
+            "terraform-docs-version:$TERRAFORM_DOCS_VERSION"; do
+            name="${name_val%%:*}"
+            val="${name_val#*:}"
+            if [ -z "$val" ]; then
+              echo "FAIL: output '$name' is empty"
+              FAILED=1
+            else
+              echo "PASS: $name = $val"
+            fi
+          done
+          if [ "$FAILED" -eq 1 ]; then
+            exit 1
+          fi
+          echo "All outputs are non-empty."
+      - name: Assert go-version looks like a version number
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-version }}
+        run: |
+          echo "go-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+'; then
+            echo "FAIL: go-version '$ACTUAL' does not look like a version number"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert python-version looks like a version number
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.python-version }}
+        run: |
+          echo "python-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+'; then
+            echo "FAIL: python-version '$ACTUAL' does not look like a version number"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert terraform-version looks like a version number
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-version }}
+        run: |
+          echo "terraform-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+'; then
+            echo "FAIL: terraform-version '$ACTUAL' does not look like a version number"
+            exit 1
+          fi
+          echo "PASS"
