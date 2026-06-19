@@ -9,6 +9,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
 | v1.2.1 | [`v1.2.1`](https://github.com/chainguard-actions/cisagov-setup-env-github-action/tree/v1.2.1) | [`e989c53`](https://github.com/cisagov/setup-env-github-action/commit/e989c53161d96fa53a8bffee2db66b1fa90d63f0) |
+| v1.3.0 | [`v1.3.0`](https://github.com/chainguard-actions/cisagov-setup-env-github-action/tree/v1.3.0) | [`2c78b78`](https://github.com/cisagov/setup-env-github-action/commit/2c78b78b1ded3161c7f855aed836e1b732bb0b3c) |
 
 ## Privacy
 
