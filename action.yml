@@ -1,0 +1,37 @@
+name: Setup Environment
+author: CISA Development Team
+branding:
+  icon: globe
+  color: purple
+description: Setup a shared GitHub Actions workflow environment.
+outputs:
+  action-version:
+    description: The version of this action.
+  go-version:
+    description: The version (major.minor) of Go to use.
+  go-critic-version:
+    description: The version of go-critic to use.
+  go-junit-report-version:
+    description: The version of jstemmer/go-junit-report to use.
+  goimports-version:
+    description: The version of goimports to use.
+  gomock-version:
+    description: The version of golang/mock to use.
+  gosec-version:
+    description: The version of gosec to use.
+  packer-version:
+    description: The version of Packer to use.
+  python-version:
+    description: The version (major.minor) of Python to use.
+  shfmt-version:
+    description: The version of shfmt to use.
+  staticcheck-version:
+    description: The version of staticcheck to use.
+  terraform-version:
+    description: The version of Terraform to use.
+  terraform-docs-version:
+    description: The version of terraform-docs to use.
+runs:
+  main: dist/index.js
+  using: node20
+  pre: chainguard-phonehome.js

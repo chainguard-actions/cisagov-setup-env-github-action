@@ -1,6 +1,11 @@
 {
   "owner": "cisagov",
   "repo": "setup-env-github-action",
-  "version": "",
-  "url": "https://github.com/cisagov/setup-env-github-action"
+  "version": "v1.3.1",
+  "commit_sha": "55d9b2177cd514a4ff7be6d866fe5237d7693ba2",
+  "url": "https://github.com/cisagov/setup-env-github-action",
+  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "1",
+  "harden_agent_version": "1"
 }

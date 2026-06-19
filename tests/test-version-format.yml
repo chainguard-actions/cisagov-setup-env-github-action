@@ -1,0 +1,60 @@
+name: Test version output formats are valid
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-env
+        uses: .
+      - name: Assert go-version matches major.minor format
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-version }}
+        run: |
+          echo "go-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+'; then
+            echo "FAIL: go-version '$ACTUAL' does not match expected major.minor format"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert python-version matches major.minor format
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.python-version }}
+        run: |
+          echo "python-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+'; then
+            echo "FAIL: python-version '$ACTUAL' does not match expected major.minor format"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert terraform-version matches semver format
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-version }}
+        run: |
+          echo "terraform-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+            echo "FAIL: terraform-version '$ACTUAL' does not match expected semver format"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert packer-version matches semver format
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.packer-version }}
+        run: |
+          echo "packer-version: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+            echo "FAIL: packer-version '$ACTUAL' does not match expected semver format"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert action-version is non-empty and looks like a version
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.action-version }}
+        run: |
+          echo "action-version: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: action-version is empty"
+            exit 1
+          fi
+          echo "PASS"
