@@ -1,4 +1,5 @@
-name: Test basic usage
+---
+name: Test basic usage - action runs and produces outputs
 on:
   workflow_dispatch:
 jobs:
@@ -8,43 +9,53 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - id: setup-env
         uses: .
-      - name: Assert go-version output is non-empty
+      - name: Assert go-version is non-empty
         env:
           ACTUAL: ${{ steps.setup-env.outputs.go-version }}
         run: |
-          echo "go-version: $ACTUAL"
+          echo "actual go-version: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: go-version output is empty"
             exit 1
           fi
           echo "PASS"
-      - name: Assert python-version output is non-empty
+      - name: Assert python-version is non-empty
         env:
           ACTUAL: ${{ steps.setup-env.outputs.python-version }}
         run: |
-          echo "python-version: $ACTUAL"
+          echo "actual python-version: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: python-version output is empty"
             exit 1
           fi
           echo "PASS"
-      - name: Assert terraform-version output is non-empty
+      - name: Assert terraform-version is non-empty
         env:
           ACTUAL: ${{ steps.setup-env.outputs.terraform-version }}
         run: |
-          echo "terraform-version: $ACTUAL"
+          echo "actual terraform-version: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: terraform-version output is empty"
             exit 1
           fi
           echo "PASS"
-      - name: Assert packer-version output is non-empty
+      - name: Assert packer-version is non-empty
         env:
           ACTUAL: ${{ steps.setup-env.outputs.packer-version }}
         run: |
-          echo "packer-version: $ACTUAL"
+          echo "actual packer-version: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: packer-version output is empty"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert shfmt-version is non-empty
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.shfmt-version }}
+        run: |
+          echo "actual shfmt-version: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: shfmt-version output is empty"
             exit 1
           fi
           echo "PASS"
