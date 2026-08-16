@@ -1,0 +1,130 @@
+name: Test version values match expected
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-env
+        uses: .
+      - name: Assert go-version equals 1.24
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-version }}
+        run: |
+          echo "actual go-version: $ACTUAL"
+          if [ "$ACTUAL" != "1.24" ]; then
+            echo "FAIL: expected '1.24', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert go-critic-version equals v0.13.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-critic-version }}
+        run: |
+          echo "actual go-critic-version: $ACTUAL"
+          if [ "$ACTUAL" != "v0.13.0" ]; then
+            echo "FAIL: expected 'v0.13.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert go-junit-report-version equals v2.1.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-junit-report-version }}
+        run: |
+          echo "actual go-junit-report-version: $ACTUAL"
+          if [ "$ACTUAL" != "v2.1.0" ]; then
+            echo "FAIL: expected 'v2.1.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert goimports-version equals v0.33.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.goimports-version }}
+        run: |
+          echo "actual goimports-version: $ACTUAL"
+          if [ "$ACTUAL" != "v0.33.0" ]; then
+            echo "FAIL: expected 'v0.33.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert gomock-version equals v1.6.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.gomock-version }}
+        run: |
+          echo "actual gomock-version: $ACTUAL"
+          if [ "$ACTUAL" != "v1.6.0" ]; then
+            echo "FAIL: expected 'v1.6.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert gosec-version equals v2.22.4
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.gosec-version }}
+        run: |
+          echo "actual gosec-version: $ACTUAL"
+          if [ "$ACTUAL" != "v2.22.4" ]; then
+            echo "FAIL: expected 'v2.22.4', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert packer-version equals 1.9.5
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.packer-version }}
+        run: |
+          echo "actual packer-version: $ACTUAL"
+          if [ "$ACTUAL" != "1.9.5" ]; then
+            echo "FAIL: expected '1.9.5', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert python-version equals 3.13
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.python-version }}
+        run: |
+          echo "actual python-version: $ACTUAL"
+          if [ "$ACTUAL" != "3.13" ]; then
+            echo "FAIL: expected '3.13', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert shfmt-version equals v3.11.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.shfmt-version }}
+        run: |
+          echo "actual shfmt-version: $ACTUAL"
+          if [ "$ACTUAL" != "v3.11.0" ]; then
+            echo "FAIL: expected 'v3.11.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert staticcheck-version equals v0.6.1
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.staticcheck-version }}
+        run: |
+          echo "actual staticcheck-version: $ACTUAL"
+          if [ "$ACTUAL" != "v0.6.1" ]; then
+            echo "FAIL: expected 'v0.6.1', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert terraform-version equals 1.5.7
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-version }}
+        run: |
+          echo "actual terraform-version: $ACTUAL"
+          if [ "$ACTUAL" != "1.5.7" ]; then
+            echo "FAIL: expected '1.5.7', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert terraform-docs-version equals v0.20.0
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-docs-version }}
+        run: |
+          echo "actual terraform-docs-version: $ACTUAL"
+          if [ "$ACTUAL" != "v0.20.0" ]; then
+            echo "FAIL: expected 'v0.20.0', got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS"
