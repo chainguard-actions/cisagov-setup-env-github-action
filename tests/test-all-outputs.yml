@@ -1,0 +1,122 @@
+name: Test all outputs are set
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-env
+        uses: .
+      - name: Assert go-critic-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-critic-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: go-critic-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v0.14.3" ]; then
+            echo "FAIL: expected go-critic-version 'v0.14.3' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: go-critic-version=$ACTUAL"
+      - name: Assert go-junit-report-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-junit-report-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: go-junit-report-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v2.1.0" ]; then
+            echo "FAIL: expected go-junit-report-version 'v2.1.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: go-junit-report-version=$ACTUAL"
+      - name: Assert goimports-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.goimports-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: goimports-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v0.42.0" ]; then
+            echo "FAIL: expected goimports-version 'v0.42.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: goimports-version=$ACTUAL"
+      - name: Assert gomock-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.gomock-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: gomock-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v1.6.0" ]; then
+            echo "FAIL: expected gomock-version 'v1.6.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: gomock-version=$ACTUAL"
+      - name: Assert gosec-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.gosec-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: gosec-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v2.24.0" ]; then
+            echo "FAIL: expected gosec-version 'v2.24.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: gosec-version=$ACTUAL"
+      - name: Assert shfmt-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.shfmt-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: shfmt-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v3.12.0" ]; then
+            echo "FAIL: expected shfmt-version 'v3.12.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: shfmt-version=$ACTUAL"
+      - name: Assert staticcheck-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.staticcheck-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: staticcheck-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v0.7.0" ]; then
+            echo "FAIL: expected staticcheck-version 'v0.7.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: staticcheck-version=$ACTUAL"
+      - name: Assert terraform-docs-version is set
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-docs-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: terraform-docs-version output is empty"
+            exit 1
+          fi
+          if [ "$ACTUAL" != "v0.21.0" ]; then
+            echo "FAIL: expected terraform-docs-version 'v0.21.0' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: terraform-docs-version=$ACTUAL"

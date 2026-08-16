@@ -1,0 +1,50 @@
+name: Test version values
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-env
+        uses: .
+      - name: Assert go-version value
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.go-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "1.26" ]; then
+            echo "FAIL: expected go-version '1.26' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: go-version=$ACTUAL"
+      - name: Assert python-version value
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.python-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "3.13" ]; then
+            echo "FAIL: expected python-version '3.13' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: python-version=$ACTUAL"
+      - name: Assert terraform-version value
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.terraform-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "1.5.7" ]; then
+            echo "FAIL: expected terraform-version '1.5.7' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: terraform-version=$ACTUAL"
+      - name: Assert packer-version value
+        env:
+          ACTUAL: ${{ steps.setup-env.outputs.packer-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "1.9.5" ]; then
+            echo "FAIL: expected packer-version '1.9.5' but got '$ACTUAL'"
+            exit 1
+          fi
+          echo "PASS: packer-version=$ACTUAL"
