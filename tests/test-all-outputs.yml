@@ -1,4 +1,4 @@
-name: Test all version outputs are populated
+name: Test all outputs are populated
 on:
   workflow_dispatch:
 jobs:
@@ -6,85 +6,95 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: setup-env
+      - id: action
         uses: .
-      - name: Assert go-critic-version output is non-empty
+      - name: Assert go-critic-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.go-critic-version }}
+          ACTUAL: ${{ steps.action.outputs.go-critic-version }}
         run: |
-          echo "go-critic-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: go-critic-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert go-junit-report-version output is non-empty
+          echo "PASS: go-critic-version=$ACTUAL"
+      - name: Assert go-junit-report-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.go-junit-report-version }}
+          ACTUAL: ${{ steps.action.outputs.go-junit-report-version }}
         run: |
-          echo "go-junit-report-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: go-junit-report-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert goimports-version output is non-empty
+          echo "PASS: go-junit-report-version=$ACTUAL"
+      - name: Assert goimports-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.goimports-version }}
+          ACTUAL: ${{ steps.action.outputs.goimports-version }}
         run: |
-          echo "goimports-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: goimports-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert gomock-version output is non-empty
+          echo "PASS: goimports-version=$ACTUAL"
+      - name: Assert gomock-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.gomock-version }}
+          ACTUAL: ${{ steps.action.outputs.gomock-version }}
         run: |
-          echo "gomock-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: gomock-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert gosec-version output is non-empty
+          echo "PASS: gomock-version=$ACTUAL"
+      - name: Assert gosec-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.gosec-version }}
+          ACTUAL: ${{ steps.action.outputs.gosec-version }}
         run: |
-          echo "gosec-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: gosec-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert shfmt-version output is non-empty
+          echo "PASS: gosec-version=$ACTUAL"
+      - name: Assert packer-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.shfmt-version }}
+          ACTUAL: ${{ steps.action.outputs.packer-version }}
         run: |
-          echo "shfmt-version: $ACTUAL"
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: packer-version output is empty"
+            exit 1
+          fi
+          echo "PASS: packer-version=$ACTUAL"
+      - name: Assert shfmt-version is non-empty
+        env:
+          ACTUAL: ${{ steps.action.outputs.shfmt-version }}
+        run: |
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: shfmt-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert staticcheck-version output is non-empty
+          echo "PASS: shfmt-version=$ACTUAL"
+      - name: Assert staticcheck-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.staticcheck-version }}
+          ACTUAL: ${{ steps.action.outputs.staticcheck-version }}
         run: |
-          echo "staticcheck-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: staticcheck-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert terraform-docs-version output is non-empty
+          echo "PASS: staticcheck-version=$ACTUAL"
+      - name: Assert terraform-docs-version is non-empty
         env:
-          ACTUAL: ${{ steps.setup-env.outputs.terraform-docs-version }}
+          ACTUAL: ${{ steps.action.outputs.terraform-docs-version }}
         run: |
-          echo "terraform-docs-version: $ACTUAL"
+          echo "actual: $ACTUAL"
           if [ -z "$ACTUAL" ]; then
             echo "FAIL: terraform-docs-version output is empty"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: terraform-docs-version=$ACTUAL"
